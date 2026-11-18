@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <meta name="description" content="Skrivhandledning och rapportmall för en laboration om friktion på lutande plan.">
+  <title>Labbrapport: Friktion på lutande plan | Fysik 1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#start">Fysik 1 · Laborationshandledning</a>
+      <nav aria-label="Sidans delar">
+        <a href="#inledning">Inledning</a>
+        <a href="#fraga">Fråga</a>
+        <a href="#metod">Metod</a>
+        <a href="#resultat">Resultat</a>
+        <a href="#diskussion">Diskussion</a>
+        <a href="#mall">Rapportmall</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="start">
+    <section class="hero">
+      <p class="eyebrow">Skrivhandledning · Fysik 1</p>
+      <h1>Friktion på lutande plan</h1>
+      <p class="lead">En guide till att skriva en tydlig och undersökningsbar labbrapport. Du gör undersökningen och skriver rapporten med dina egna ord.</p>
+      <a class="primary-link" href="#inledning">Börja med rapportens delar ↓</a>
+    </section>
+
+    <section class="overview" aria-labelledby="overview-title">
+      <div>
+        <p class="eyebrow">Undersökningen i korthet</p>
+        <h2 id="overview-title">Vad ska ni ta reda på?</h2>
+        <p>En träkloss (ett rätblock) ligger på ett lutande plan. Ni höjer planet och mäter vinkeln då klossen börjar glida. Sedan jämför ni olika sidor på klossen och en kloss med två likadana klossar staplade på varandra.</p>
+      </div>
+      <div class="overview-badges">
+        <span>Vilo- och glidfriktion</span>
+        <span>Vinkel och kraftkomposanter</span>
+        <span>Kontaktyta och massa</span>
+      </div>
+    </section>
+
+    <section id="inledning" class="report-section">
+      <div class="section-title">
+        <span class="section-number">1</span>
+        <div>
+          <p class="eyebrow">Rapportens första del</p>
+          <h2>Inledning – bygg upp teorin</h2>
+        </div>
+      </div>
+      <div class="content-grid">
+        <div class="prose">
+          <p>Inledningen ska ge läsaren den fysik som behövs för att förstå undersökningen och varför er fråga är rimlig. Skriv sammanhängande med egna ord: börja med friktion och avsluta med hur ett lutande plan kan användas för att undersöka den.</p>
+          <h3>Ta med relevant teori</h3>
+          <ul>
+            <li>Friktion är en kontaktkraft som motverkar glidning eller den relativa rörelsen mellan ytor.</li>
+            <li>Normalkraften <strong>N</strong> är underlagets kraft vinkelrätt mot planet.</li>
+            <li>Tyngdkraften <strong>F<sub>g</sub> = mg</strong> kan delas upp i en komponent längs planet och en vinkelrät mot planet.</li>
+          </ul>
+        </div>
+        <aside class="formula-card" aria-label="Teori och formler">
+          <h3>Krafter på klossen</h3>
+          <p class="formula">F<sub>g,∥</sub> = mg sin θ</p>
+          <p class="formula">N = mg cos θ</p>
+          <p class="formula">F<sub>g,⊥</sub> = mg cos θ</p>
+          <p class="formula-note">Här är m massan, g tyngdaccelerationen och θ planets vinkel mot horisontalplanet.</p>
+        </aside>
+      </div>
+      <div class="friction-types">
+        <article>
+          <span class="type-tag static">Innan klossen glider</span>
+          <h3>Vilofriktion</h3>
+          <p>Vilofriktionen anpassar sig efter den kraft som försöker få klossen att glida. Den kan öka upp till ett största värde: <strong>F<sub>s,max</sub> = μ<sub>s</sub>N</strong>. Precis när klossen börjar glida gäller ungefär <strong>mg sin θ<sub>s</sub> = μ<sub>s</sub>mg cos θ<sub>s</sub></strong>.</p>
+          <p class="formula result-formula">μ<sub>s</sub> = tan θ<sub>s</sub></p>
+        </article>
+        <article>
+          <span class="type-tag kinetic">När klossen glider</span>
+          <h3>Glidfriktion</h3>
+          <p>Glidfriktionen verkar när ytorna glider mot varandra. Vid konstant hastighet är resultantkraften längs planet noll, så <strong>mg sin θ<sub>k</sub> = μ<sub>k</sub>mg cos θ<sub>k</sub></strong>.</p>
+          <p class="formula result-formula">μ<sub>k</sub> = tan θ<sub>k</sub></p>
+          <p class="small-note">Om klossen accelererar kan ni i stället använda μ<sub>k</sub> = (g sin θ − a)/(g cos θ), om accelerationen a går att mäta.</p>
+        </article>
+      </div>
+      <div class="callout">
+        <strong>Viktigt om mätningen:</strong> Vinkeln där klossen precis börjar röra sig används för vilofriktion. För glidfriktion behövs vinkeln då klossen redan glider med ungefär konstant hastighet. Om klossen accelererar kan ni inte direkt använda μ<sub>k</sub> = tan θ.
+      </div>
+      <p class="teacher-note">Använd teorin som stöd för er egen inledning. Skriv inte av sidan ordagrant och presentera inte en teori som om den redan vore ett resultat.</p>
+    </section>
+
+    <section id="fraga" class="report-section">
+      <div class="section-title">
+        <span class="section-number">2</span>
+        <div>
+          <p class="eyebrow">Gör undersökningen tydlig</p>
+          <h2>Frågeställning eller hypotes</h2>
+        </div>
+      </div>
+      <div class="content-grid">
+        <article class="guidance-card">
+          <h3>En bra frågeställning är …</h3>
+          <ul>
+            <li>specifik och möjlig att besvara med era mätningar</li>
+            <li>tydlig med vad ni ändrar och vad ni mäter</li>
+            <li>avgränsad till en jämförelse i taget.</li>
+          </ul>
+          <p class="sentence-starter">Exempel på frågeställning:</p>
+          <p>”Hur påverkas den beräknade friktionskoefficienten av träklossens kontaktsida respektive av att massan fördubblas?”</p>
+        </article>
+        <article class="guidance-card hypothesis-card">
+          <h3>En hypotes förutsäger och motiverar</h3>
+          <p>Förutsäg vad ni tror händer och förklara varför med hjälp av teorin. Gör en förutsägelse som går att jämföra med era resultat.</p>
+          <p class="sentence-starter">Skriv själva, till exempel med början:</p>
+          <p>”Vi förutspår att … eftersom … Enligt modellen bör …”</p>
+          <p class="small-note">Ni behöver inte skriva både hypotes och frågeställning om läraren inte har bett om båda.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="metod" class="report-section">
+      <div class="section-title">
+        <span class="section-number">3</span>
+        <div>
+          <p class="eyebrow">Gör försöket möjligt att upprepa</p>
+          <h2>Metod – skriv steg för steg</h2>
+        </div>
+      </div>
+      <p class="section-intro">Beskriv utrustningen och exakt hur ni gjorde. En annan elev ska kunna upprepa försöket utan att behöva gissa. Skriv i dåtid och undvik formuleringar som ”vi gjorde som vanligt”.</p>
+
+      <div class="method-columns">
+        <article class="method-card">
+          <h3>Utrustning och förberedelser</h3>
+          <ul>
+            <li>Lutande plan med justerbar vinkel och vinkelmätare eller digital lutningssensor.</li>
+            <li>Två likadana träklossar (rätblock), våg och eventuellt mobilkamera eller tidtagarur.</li>
+            <li>Mät och skriv upp massan för en kloss. Bestäm och märk klossens olika kontaktsidor.</li>
+            <li>Använd samma lutande plan och samma materialyta under hela försöket. Se till att ytorna är rena och torra.</li>
+          </ul>
+        </article>
+        <article class="method-card steps-card">
+          <h3>A. Jämför kontaktsidor</h3>
+          <ol>
+            <li>Sänk planet till ett litet vinkelvärde och placera en kloss stilla nära den nedre delen. Ange vilken sida som ligger mot planet.</li>
+            <li>Höj planet långsamt och jämnt. Läs av vinkeln när klossen precis börjar glida nedåt. Rör inte klossen medan vinkeln höjs.</li>
+            <li>Sänk planet, återställ klossen och upprepa minst fem gånger för samma sida. Skriv ned varje avläsning, även om den avviker.</li>
+            <li>Upprepa mätningarna med klossen på de andra sidorna. Ändra bara kontaktsidan; håll övriga förhållanden så lika som möjligt.</li>
+          </ol>
+        </article>
+        <article class="method-card steps-card">
+          <h3>B. Jämför massor</h3>
+          <ol>
+            <li>Välj en kontaktsida och placera två likadana klossar ovanpå varandra. Rikta in dem så att den undre klossen har samma kontaktsida och läge som i mätningen med en kloss.</li>
+            <li>Upprepa mätningarna av vinkeln då klossarna precis börjar glida. Kontrollera att klossarna rör sig tillsammans.</li>
+            <li>Upprepa minst fem gånger. Jämför en och två klossar med samma kontaktsida. Den sammanlagda massan ska anges.</li>
+          </ol>
+        </article>
+        <article class="method-card steps-card">
+          <h3>C. Mät glidfriktion</h3>
+          <ol>
+            <li>Markera två eller flera lika långa sträckor på planet. Ställ in en vinkel där klossen kan glida. Ge den en liten knuff före den första markeringen och släpp helt.</li>
+            <li>Jämför tiden över två lika långa sträckor. Om tiderna är ungefär lika är hastigheten ungefär konstant. Om klossen accelererar eller bromsar, justera vinkeln och försök igen. Mobilfilm kan hjälpa er att jämföra tiderna.</li>
+            <li>När hastigheten är ungefär konstant, avläs vinkeln θ<sub>k</sub>. Gör minst fem upprepningar för varje uppställning ni vill jämföra.</li>
+          </ol>
+        </article>
+      </div>
+      <div class="callout caution">
+        <strong>För rättvis jämförelse:</strong> Ändra en faktor i taget. Håll samma träyta mot planet när ni jämför massorna. När ni jämför kontaktsidor använder ni samma kloss, samma plan och samma metod.
+      </div>
+    </section>
+
+    <section id="resultat" class="report-section">
+      <div class="section-title">
+        <span class="section-number">4</span>
+        <div>
+          <p class="eyebrow">Visa vad ni faktiskt mätte</p>
+          <h2>Resultat – tabeller, beräkningar och diagram</h2>
+        </div>
+      </div>
+      <p class="section-intro">Skriv först de uppmätta vinklarna med enhet och antal decimaler som mätinstrumentet motiverar. Håll rådata åtskilda från era beräknade värden. Lämna inte bort mätningar som inte passar hypotesen.</p>
+
+      <div class="table-card">
+        <h3>Tabell 1. Vinkel vid begynnande glidning – vilofriktion</h3>
+        <p>Fyll i vinklarna för varje uppställning. Beräkna sedan μ<sub>s</sub> = tan θ<sub>s</sub>.</p>
+        <div class="table-scroll">
+          <table>
+            <caption>Rådata och beräknade värden för vilofriktion</caption>
+            <thead>
+              <tr>
+                <th scope="col">Uppställning</th>
+                <th scope="col">Massa (kg)</th>
+                <th scope="col">Kontaktsida</th>
+                <th scope="col">θ<sub>s1</sub> (°)</th>
+                <th scope="col">θ<sub>s2</sub> (°)</th>
+                <th scope="col">θ<sub>s3</sub> (°)</th>
+                <th scope="col">θ<sub>s4</sub> (°)</th>
+                <th scope="col">θ<sub>s5</sub> (°)</th>
+                <th scope="col">Medelvinkel (°)</th>
+                <th scope="col">μ<sub>s</sub></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">En kloss</th><td></td><td>A</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><th scope="row">En kloss</th><td></td><td>B</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><th scope="row">En kloss</th><td></td><td>C</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><th scope="row">Två klossar</th><td></td><td>A</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <h3>Tabell 2. Vinkel vid konstant glidhastighet – glidfriktion</h3>
+        <p>Beräkna μ<sub>k</sub> = tan θ<sub>k</sub> för varje uppställning och redovisa mätningarna.</p>
+        <div class="table-scroll">
+          <table>
+            <caption>Rådata och beräknade värden för glidfriktion</caption>
+            <thead>
+              <tr>
+                <th scope="col">Uppställning</th>
+                <th scope="col">Kontaktsida</th>
+                <th scope="col">θ<sub>k1</sub> (°)</th>
+                <th scope="col">θ<sub>k2</sub> (°)</th>
+                <th scope="col">θ<sub>k3</sub> (°)</th>
+                <th scope="col">θ<sub>k4</sub> (°)</th>
+                <th scope="col">θ<sub>k5</sub> (°)</th>
+                <th scope="col">Medelvinkel (°)</th>
+                <th scope="col">μ<sub>k</sub></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">En kloss</th><td>A</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><th scope="row">En kloss</th><td>B</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><th scope="row">En kloss</th><td>C</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><th scope="row">Två klossar</th><td>A</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="content-grid result-guidance">
+        <article class="guidance-card">
+          <h3>Visa ett exempel på beräkning</h3>
+          <p>Skriv ut formeln, sätt in ett mätvärde och visa svaret med rimligt antal värdesiffror. Vinkelinställningen på räknaren ska vara grader.</p>
+          <div class="calculation-example">
+            <p><strong>Exempel med påhittade värden:</strong> θ<sub>s</sub> = 25°</p>
+            <p>μ<sub>s</sub> = tan 25° ≈ 0,47</p>
+          </div>
+          <p class="small-note">Exemplet är bara en beräkningsillustration – använd era egna mätdata i rapporten.</p>
+        </article>
+        <article class="guidance-card">
+          <h3>Förslag på diagram</h3>
+          <ul>
+            <li>Jämför μ<sub>s</sub> för de olika kontaktsidorna.</li>
+            <li>Jämför μ<sub>s</sub> för en och två klossar med samma kontaktsida.</li>
+            <li>Om ni beräknar friktionskrafter kan ni rita friktionskraft (N) mot normalkraft (N). Skriv ut storhet, enhet och vad varje symbolserie visar.</li>
+          </ul>
+          <p>Ge varje tabell och diagram ett nummer och en beskrivande rubrik. Hänvisa till dem i resultattexten.</p>
+        </article>
+      </div>
+      <div class="callout">
+        <strong>Medelvärden:</strong> Beräkna μ = tan θ för varje försök och ta sedan medelvärdet av koefficienterna. Redovisa gärna också medelvinkeln. Friktionskoefficienten μ saknar enhet.
+      </div>
+    </section>
+
+    <section id="diskussion" class="report-section">
+      <div class="section-title">
+        <span class="section-number">5</span>
+        <div>
+          <p class="eyebrow">Tolka och värdera</p>
+          <h2>Diskussion – vad betyder resultaten?</h2>
+        </div>
+      </div>
+      <div class="discussion-grid">
+        <article class="guidance-card">
+          <h3>Resonera med stöd i era data</h3>
+          <ul>
+            <li>Besvara frågeställningen och jämför resultatet med hypotesen. Använd konkreta värden ur tabellerna.</li>
+            <li>Vilken skillnad såg ni mellan vilofriktion och glidfriktion? I många material är μ<sub>s</sub> större än μ<sub>k</sub>, men bedöm vad era mätningar visar.</li>
+            <li>Förändrades μ när klossen vändes på en annan sida? En enkel friktionsmodell förutspår att μ främst beror på materialparet och inte på den synliga kontaktytan.</li>
+            <li>Vad hände när massan dubblerades? Modellen förutspår större normalkraft och större friktionskraft, men ungefär samma friktionskoefficient och samma gränsvinkel.</li>
+            <li>Stöd varje slutsats med mätvärden och kommentera om skillnaderna är större än mätosäkerheten.</li>
+          </ul>
+        </article>
+        <article class="guidance-card">
+          <h3>Avsluta med slutsats och förbättring</h3>
+          <p>Avsluta diskussionen med ett kort svar på frågan. Skriv därefter vad ni skulle ändra om försöket gjordes igen och varför det skulle göra resultatet mer tillförlitligt.</p>
+          <p class="sentence-starter">Bra resonemang kopplar ihop:</p>
+          <p><strong>mätvärde → fysikalisk förklaring → osäkerhet → möjlig förbättring.</strong></p>
+        </article>
+      </div>
+
+      <div class="table-card error-card">
+        <h3>Fel och osäkerheter att diskutera</h3>
+        <div class="table-scroll">
+          <table>
+            <caption>Exempel på systematiska och slumpmässiga fel samt sätt att minska dem</caption>
+            <thead>
+              <tr>
+                <th scope="col">Typ</th>
+                <th scope="col">Möjlig felkälla</th>
+                <th scope="col">Hur kan den påverka resultatet?</th>
+                <th scope="col">Hur kan felet minskas?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Systematiskt</th>
+                <td>Vinkelmätaren är fel nollställd eller planet är skevt.</td>
+                <td>Alla vinklar kan bli för stora eller för små åt samma håll.</td>
+                <td>Kontrollera nollan och planet mot ett känt horisontellt läge före mätning.</td>
+              </tr>
+              <tr>
+                <th scope="row">Systematiskt</th>
+                <td>Träytan eller planet är dammig, fuktig eller sliten.</td>
+                <td>Friktionen kan bli annorlunda än i ett rent, torrt försök.</td>
+                <td>Rengör och torka ytorna; använd samma plan och dokumentera ytskicket.</td>
+              </tr>
+              <tr>
+                <th scope="row">Slumpmässigt</th>
+                <td>Det är svårt att avgöra exakt när klossen börjar glida.</td>
+                <td>Avlästa vinklar varierar mellan försöken.</td>
+                <td>Höj planet långsamt och jämnt, använd video och gör flera upprepningar.</td>
+              </tr>
+              <tr>
+                <th scope="row">Slumpmässigt</th>
+                <td>Vinkeln avläses från olika håll eller i olika steg.</td>
+                <td>Parallax eller grov upplösning ger spridda värden.</td>
+                <td>Avläs vinkelmätaren rakt framifrån och använd samma små vinkelsteg.</td>
+              </tr>
+              <tr>
+                <th scope="row">Metodfel</th>
+                <td>Klossen får en knuff vid mätning av begynnande glidning eller glidhastigheten är inte konstant.</td>
+                <td>Fel friktionsmodell eller fel vinkel kan användas i beräkningen.</td>
+                <td>Släpp utan knuff vid θ<sub>s</sub>; för θ<sub>k</sub>, kontrollera rörelsen mellan markeringar med video.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small-note">Slumpmässiga fel sprider mätvärdena åt olika håll. Systematiska fel förskjuter ofta alla mätvärden åt samma håll. Fler upprepningar minskar osäkerheten i medelvärdet men tar inte automatiskt bort systematiska fel.</p>
+      </div>
+    </section>
+
+    <section id="mall" class="report-section template-section">
+      <div class="section-title">
+        <span class="section-number">+</span>
+        <div>
+          <p class="eyebrow">Skriv med egna ord</p>
+          <h2>Förslag på rapportmall</h2>
+        </div>
+      </div>
+      <p class="section-intro">Kopiera rubrikerna till ert dokument och fyll i med er egen fråga, metod och era mätvärden. Ta bort stödtexten när rapporten är klar.</p>
+      <div class="template">
+        <h3>Rubrik: Friktion på lutande plan</h3>
+        <h4>1. Inledning</h4>
+        <p>[Förklara friktion, normalkraft och tyngdkraftens komponenter längs och vinkelrätt mot planet. Ta med relevanta formler och förklara vad de betyder. Avsluta med varför undersökningen görs.]</p>
+        <h4>2. Frågeställning eller hypotes</h4>
+        <p>[Skriv en tydlig fråga. Om ni har en hypotes: förutsäg vad ni tror händer och motivera den med teorin.]</p>
+        <h4>3. Metod</h4>
+        <p><strong>Utrustning:</strong> [Lista material och mätinstrument.]</p>
+        <p><strong>Genomförande:</strong> [Numrerade steg så att någon annan kan upprepa försöket. Ange hur ni mätte θ<sub>s</sub> och θ<sub>k</sub>, vilka kontaktsidor ni testade, hur ni jämförde massorna och hur många upprepningar ni gjorde.]</p>
+        <h4>4. Resultat</h4>
+        <p>[Visa rådata i numrerade tabeller med rubriker och enheter. Visa ett exempel på beräkning av μ<sub>s</sub> och μ<sub>k</sub>. Lägg till diagram om det hjälper att jämföra resultaten. Beskriv kort vad tabellen/diagrammet visar utan att förklara orsakerna ännu.]</p>
+        <h4>5. Diskussion</h4>
+        <p>[Besvara frågeställningen. Jämför med hypotesen och teorin med stöd i era värden. Resonera om vilo- och glidfriktion, kontaktsida och massa. Diskutera systematiska och slumpmässiga fel, deras påverkan och konkreta förbättringar. Avsluta med en slutsats.]</p>
+      </div>
+      <div class="print-action">
+        <button type="button" onclick="window.print()">Skriv ut handledningen / spara som PDF</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Fysik 1 · Laborationshandledning om friktion på lutande plan. Exempelvärdet i beräkningsrutan är påhittat och ska inte användas som mätresultat.</p>
+  </footer>
+</body>
+</html>

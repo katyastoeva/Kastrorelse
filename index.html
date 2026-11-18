@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Krafter i vardagen | Fysik 1</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17243b;
+      --muted: #59677d;
+      --paper: #ffffff;
+      --canvas: #f5f7fb;
+      --line: #dce3ee;
+      --blue: #2864dc;
+      --teal: #008b91;
+      --orange: #e87928;
+      --red: #d74747;
+      --green: #18794e;
+      --shadow: 0 16px 42px rgba(27, 47, 83, .08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--canvas);
+      color: var(--ink);
+      font: 16px/1.6 "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+
+    a { color: var(--blue); }
+
+    button, input { font: inherit; }
+
+    button:focus-visible, a:focus-visible, input:focus-visible {
+      outline: 3px solid #82aaff;
+      outline-offset: 3px;
+    }
+
+    .topbar {
+      position: sticky;
+      z-index: 5;
+      top: 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, .94);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-inner, main, footer {
+      width: min(1120px, calc(100% - 36px));
+      margin-inline: auto;
+    }
+
+    .topbar-inner {
+      display: flex;
+      min-height: 60px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand { font-weight: 800; letter-spacing: -.03em; }
+
+    nav { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+
+    nav a {
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 650;
+      text-decoration: none;
+    }
+
+    nav a:hover { color: var(--blue); }
+
+    main { padding-block: 34px 72px; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 6vw, 66px);
+      border-radius: 28px;
+      background: #eaf0ff;
+    }
+
+    .hero::after {
+      position: absolute;
+      right: -52px;
+      bottom: -122px;
+      width: 350px;
+      height: 350px;
+      border: 46px solid rgba(40, 100, 220, .08);
+      border-radius: 50%;
+      content: "";
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 700px;
+      margin-bottom: 14px;
+      font-size: clamp(2.4rem, 6vw, 4.7rem);
+      letter-spacing: -.06em;
+      line-height: 1.02;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: clamp(1.7rem, 4vw, 2.45rem);
+      letter-spacing: -.04em;
+      line-height: 1.15;
+    }
+
+    h3 { margin-bottom: 8px; font-size: 1.16rem; }
+
+    .hero-copy { max-width: 660px; color: #43536e; font-size: 1.1rem; }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+
+    .button {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 16px;
+      border: 1px solid var(--blue);
+      border-radius: 12px;
+      background: var(--blue);
+      color: white;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .button.secondary { background: white; color: var(--blue); }
+
+    section { scroll-margin-top: 82px; margin-top: 58px; }
+
+    .section-heading { max-width: 720px; margin-bottom: 22px; }
+
+    .section-heading > p:last-child { color: var(--muted); }
+
+    .grid { display: grid; gap: 18px; }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      min-width: 0;
+      padding: clamp(18px, 3vw, 28px);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .card p:last-child { margin-bottom: 0; }
+
+    .simulator {
+      display: grid;
+      grid-template-columns: minmax(230px, .75fr) minmax(0, 1.25fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .controls { display: grid; gap: 18px; }
+
+    .control label {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    output { color: var(--blue); font-variant-numeric: tabular-nums; }
+
+    input[type="range"] { width: 100%; accent-color: var(--blue); }
+
+    .range-limits {
+      display: flex;
+      justify-content: space-between;
+      margin-top: -6px;
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    .equation {
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: #f0f4fb;
+      color: #253954;
+      font-size: 1.06rem;
+      font-weight: 750;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .diagram {
+      width: 100%;
+      min-height: 220px;
+      border: 1px solid #e8edf5;
+      border-radius: 16px;
+      background: #fbfcfe;
+    }
+
+    svg text { fill: var(--ink); font-family: inherit; }
+
+    .axis { stroke: #ccd5e2; stroke-width: 1.5; }
+
+    .vector { stroke-width: 4; stroke-linecap: round; }
+
+    .vector-x { stroke: var(--blue); }
+    .vector-y { stroke: var(--teal); }
+    .vector-result { stroke: var(--red); }
+    .vector-component { stroke: var(--teal); stroke-dasharray: 6 5; }
+    .vector-force { stroke: var(--orange); }
+    .vector-reaction { stroke: var(--blue); }
+
+    .diagram-note { fill: var(--muted); font-size: 13px; }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; color: var(--muted); font-size: .86rem; }
+
+    .legend span::before {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      content: "";
+    }
+
+    .legend .x { color: var(--blue); }
+    .legend .y { color: var(--teal); }
+    .legend .r { color: var(--red); }
+
+    .tip {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--teal);
+      border-radius: 0 10px 10px 0;
+      background: #eaf8f7;
+      color: #254b50;
+    }
+
+    .steps { display: grid; gap: 12px; padding: 0; list-style: none; counter-reset: step; }
+
+    .steps li {
+      position: relative;
+      min-height: 42px;
+      padding: 7px 0 7px 48px;
+      counter-increment: step;
+    }
+
+    .steps li::before {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      display: grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      border-radius: 50%;
+      background: #eaf0ff;
+      color: var(--blue);
+      content: counter(step);
+      font-weight: 800;
+    }
+
+    .law-number { color: var(--blue); font-size: .78rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+
+    .everyday {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .everyday article {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    .everyday article p { margin-bottom: 0; color: var(--muted); font-size: .93rem; }
+
+    .quiz { display: grid; gap: 14px; }
+
+    .question {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: white;
+    }
+
+    .question p { margin-bottom: 12px; font-weight: 700; }
+
+    .answers { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .answer {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .answer:hover { border-color: var(--blue); }
+    .answer[aria-pressed="true"] { border-color: var(--blue); background: #eaf0ff; }
+    .answer.correct { border-color: #9bd6b8; background: #eaf8f0; color: #145b3b; }
+    .answer.incorrect { border-color: #f0b5b5; background: #fff0f0; color: #9e2929; }
+
+    .feedback { min-height: 1.5em; margin: 10px 0 0; color: var(--muted); font-size: .92rem; }
+
+    footer { padding-block: 10px 32px; color: var(--muted); font-size: .88rem; }
+
+    @media (max-width: 760px) {
+      .topbar-inner { align-items: flex-start; flex-direction: column; padding-block: 10px; }
+      nav { gap: 5px 13px; }
+      .simulator, .grid.two { grid-template-columns: 1fr; }
+      .everyday { grid-template-columns: 1fr; }
+      section { margin-top: 42px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#start" style="color: inherit; text-decoration: none;">Fysik 1 · Krafter</a>
+      <nav aria-label="Lektionens delar">
+        <a href="#resultant">Resultant</a>
+        <a href="#komposanter">Komposanter</a>
+        <a href="#newton">Newtons lagar</a>
+        <a href="#ovning">Öva</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="start">
+    <section class="hero" style="margin-top: 0;">
+      <p class="eyebrow">En interaktiv lektion</p>
+      <h1>Krafter finns överallt.</h1>
+      <p class="hero-copy">Varför rullar en boll vidare? Varför känns bussen som om den skjuter dig bakåt när den startar? Utforska kraftpilar, resultant och Newtons lagar – och prova själv.</p>
+      <div class="hero-actions">
+        <a class="button" href="#resultant">Börja utforska</a>
+        <a class="button secondary" href="#newton">Gå till Newtons lagar</a>
+      </div>
+    </section>
+
+    <section id="resultant">
+      <div class="section-heading">
+        <p class="eyebrow">1 · Flera krafter samtidigt</p>
+        <h2>Vad är resultantkraft?</h2>
+        <p>Resultantkraften är den sammanlagda effekten av alla krafter på ett föremål. Ändra komponenterna och se hur den röda pilen visar den totala kraften.</p>
+      </div>
+      <div class="card simulator">
+        <div class="controls">
+          <div class="control">
+            <label for="force-x">Kraft i sidled, F<sub>x</sub> <output id="force-x-value" for="force-x">6 N</output></label>
+            <input id="force-x" type="range" min="-10" max="10" step="1" value="6">
+            <div class="range-limits"><span>−10 N</span><span>+10 N</span></div>
+          </div>
+          <div class="control">
+            <label for="force-y">Kraft i höjdled, F<sub>y</sub> <output id="force-y-value" for="force-y">4 N</output></label>
+            <input id="force-y" type="range" min="-10" max="10" step="1" value="4">
+            <div class="range-limits"><span>−10 N</span><span>+10 N</span></div>
+          </div>
+          <div class="equation" id="result-equation" aria-live="polite">F<sub>R</sub> = 7,2 N · riktning 34°</div>
+          <p style="color: var(--muted); margin: 0;">I två dimensioner adderar du först x- och y-komponenterna. Sedan beräknar du resultantens storlek och riktning.</p>
+        </div>
+        <div>
+          <svg class="diagram" viewBox="0 0 460 310" role="img" aria-labelledby="result-title result-desc">
+            <title id="result-title">Interaktivt vektordiagram för resultantkraft</title>
+            <desc id="result-desc">Blå pil visar kraftens x-komponent, turkos pil y-komponenten och röd pil resultantkraften.</desc>
+            <defs>
+              <marker id="arrow-x" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#2864dc"/></marker>
+              <marker id="arrow-y" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#008b91"/></marker>
+              <marker id="arrow-r" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#d74747"/></marker>
+            </defs>
+            <line class="axis" x1="35" y1="155" x2="425" y2="155"/>
+            <line class="axis" x1="230" y1="275" x2="230" y2="30"/>
+            <text class="diagram-note" x="398" y="146">+x</text>
+            <text class="diagram-note" x="238" y="43">+y</text>
+            <circle cx="230" cy="155" r="5" fill="#17243b"/>
+            <line id="result-x-vector" class="vector vector-x" x1="230" y1="155" x2="308" y2="155" marker-end="url(#arrow-x)"/>
+            <line id="result-y-vector" class="vector vector-y" x1="308" y1="155" x2="308" y2="103" marker-end="url(#arrow-y)"/>
+            <line id="result-vector" class="vector vector-result" x1="230" y1="155" x2="308" y2="103" marker-end="url(#arrow-r)"/>
+            <text id="result-x-label" class="diagram-note" x="267" y="176">Fₓ</text>
+            <text id="result-y-label" class="diagram-note" x="317" y="129">Fᵧ</text>
+            <text id="result-label" x="318" y="98" font-size="14" font-weight="800" fill="#d74747">Fᵣ</text>
+            <text class="diagram-note" x="20" y="294">Kraftvektorerna adderas spets mot svans.</text>
+          </svg>
+          <div class="legend"><span class="x">F<sub>x</sub></span><span class="y">F<sub>y</sub></span><span class="r">F<sub>R</sub></span></div>
+        </div>
+      </div>
+      <div class="grid two" style="margin-top: 18px;">
+        <article class="card">
+          <h3>Så bestämmer du resultant</h3>
+          <ol class="steps">
+            <li>Välj positiva riktningar och rita ut krafterna.</li>
+            <li>Addera krafterna i varje riktning: ΣF<sub>x</sub> och ΣF<sub>y</sub>.</li>
+            <li>Beräkna storleken: F<sub>R</sub> = √(F<sub>x</sub>² + F<sub>y</sub>²).</li>
+            <li>Bestäm riktningen med θ = atan2(F<sub>y</sub>, F<sub>x</sub>) och ange vinkelns kvadrant.</li>
+          </ol>
+        </article>
+        <article class="card">
+          <h3>När går krafterna jämnt ut?</h3>
+          <p>Om resultantkraften är noll är föremålet i jämvikt: det står stilla eller rör sig med konstant hastighet. Det betyder <strong>inte</strong> att inga krafter verkar.</p>
+          <div class="tip">Vardagsexempel: En bok ligger stilla på bordet. Bordets normalkraft uppåt balanserar tyngdkraften nedåt.</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="komposanter">
+      <div class="section-heading">
+        <p class="eyebrow">2 · Dela upp en kraft</p>
+        <h2>Komposantuppdelning</h2>
+        <p>En sned kraft kan ersättas av två vinkelräta komponenter. Dra i reglagen och se hur den horisontella och vertikala delen förändras.</p>
+      </div>
+      <div class="card simulator">
+        <div class="controls">
+          <div class="control">
+            <label for="component-magnitude">Kraftens storlek, F <output id="component-magnitude-value" for="component-magnitude">12 N</output></label>
+            <input id="component-magnitude" type="range" min="0" max="20" step="1" value="12">
+            <div class="range-limits"><span>0 N</span><span>20 N</span></div>
+          </div>
+          <div class="control">
+            <label for="component-angle">Vinkel från horisontalen, θ <output id="component-angle-value" for="component-angle">35°</output></label>
+            <input id="component-angle" type="range" min="0" max="90" step="1" value="35">
+            <div class="range-limits"><span>0°</span><span>90°</span></div>
+          </div>
+          <div class="equation" id="component-equation" aria-live="polite">Fₓ = 9,8 N &nbsp;·&nbsp; Fᵧ = 6,9 N</div>
+          <p style="color: var(--muted); margin: 0;">Om θ mäts från horisontalen: F<sub>x</sub> = F cos θ och F<sub>y</sub> = F sin θ.</p>
+          <p style="color: var(--muted); margin: 0;">Exempel: när du drar en pulka snett uppåt bidrar den horisontella delen till rörelsen framåt och den vertikala delen påverkar hur hårt pulkan trycker mot snön.</p>
+        </div>
+        <div>
+          <svg class="diagram" viewBox="0 0 400 250" role="img" aria-labelledby="component-title component-desc">
+            <title id="component-title">Kraft uppdelad i komponenter</title>
+            <desc id="component-desc">En sned kraftpil delas upp i en horisontell x-komponent och en vertikal y-komponent.</desc>
+            <defs>
+              <marker id="arrow-c" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#008b91"/></marker>
+              <marker id="arrow-f" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#e87928"/></marker>
+            </defs>
+            <line class="axis" x1="38" y1="205" x2="370" y2="205"/>
+            <line class="axis" x1="65" y1="222" x2="65" y2="25"/>
+            <circle cx="65" cy="205" r="5" fill="#17243b"/>
+            <line id="component-x-vector" class="vector vector-component" x1="65" y1="205" x2="145" y2="205" marker-end="url(#arrow-c)"/>
+            <line id="component-y-vector" class="vector vector-component" x1="145" y1="205" x2="145" y2="150" marker-end="url(#arrow-c)"/>
+            <line id="component-force-vector" class="vector vector-force" x1="65" y1="205" x2="145" y2="150" marker-end="url(#arrow-f)"/>
+            <text id="component-x-label" class="diagram-note" x="95" y="226">Fₓ</text>
+            <text id="component-y-label" class="diagram-note" x="151" y="178">Fᵧ</text>
+            <text id="component-force-label" x="151" y="145" font-size="14" font-weight="800" fill="#e87928">F</text>
+            <text class="diagram-note" x="91" y="198">θ</text>
+          </svg>
+          <div class="legend"><span class="y">Komposanter</span><span style="color: var(--orange);">Ursprunglig kraft F</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="newton">
+      <div class="section-heading">
+        <p class="eyebrow">3 · Rörelse och påverkan</p>
+        <h2>Newtons tre lagar</h2>
+        <p>Lagarna beskriver sambandet mellan krafter och rörelse. Följ pilarna och prova den interaktiva beräkningen.</p>
+      </div>
+      <div class="grid two">
+        <article class="card">
+          <p class="law-number">Newtons första lag · tröghetslagen</p>
+          <h3>Utan resultant ändras inte rörelsen</h3>
+          <p>Ett föremål behåller vila eller konstant hastighet om resultantkraften är noll.</p>
+          <svg class="diagram" viewBox="0 0 380 160" role="img" aria-labelledby="first-title">
+            <title id="first-title">Normalkraft och tyngdkraft balanserar en låda</title>
+            <defs>
+              <marker id="arrow-up" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#2864dc"/></marker>
+              <marker id="arrow-down" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#e87928"/></marker>
+            </defs>
+            <line x1="60" y1="126" x2="320" y2="126" stroke="#8997aa" stroke-width="3"/>
+            <rect x="155" y="77" width="70" height="49" rx="8" fill="#eaf0ff" stroke="#9bb7f3" stroke-width="2"/>
+            <line x1="190" y1="77" x2="190" y2="32" class="vector vector-x" marker-end="url(#arrow-up)"/>
+            <line x1="190" y1="77" x2="190" y2="117" class="vector vector-force" marker-end="url(#arrow-down)"/>
+            <text x="202" y="45" font-size="14" font-weight="700">N</text>
+            <text x="202" y="112" font-size="14" font-weight="700">F<tspan baseline-shift="sub" font-size="10">g</tspan></text>
+            <text class="diagram-note" x="17" y="151">N = F<tspan baseline-shift="sub">g</tspan> → ΣF = 0</text>
+          </svg>
+        </article>
+
+        <article class="card">
+          <p class="law-number">Newtons andra lag · kraftekvationen</p>
+          <h3>Större resultant ger större acceleration</h3>
+          <p>Accelerationen ökar med resultantkraften och minskar med massan.</p>
+          <div class="controls" style="margin-block: 16px;">
+            <div class="control">
+              <label for="mass">Vagnens massa, m <output id="mass-value" for="mass">4 kg</output></label>
+              <input id="mass" type="range" min="1" max="10" step="1" value="4">
+              <div class="range-limits"><span>1 kg</span><span>10 kg</span></div>
+            </div>
+            <div class="control">
+              <label for="net-force">Resultantkraft, ΣF <output id="net-force-value" for="net-force">12 N</output></label>
+              <input id="net-force" type="range" min="0" max="30" step="1" value="12">
+              <div class="range-limits"><span>0 N</span><span>30 N</span></div>
+            </div>
+          </div>
+          <div class="equation" id="newton-equation" aria-live="polite">ΣF = m·a → a = 12/4 = 3,0 m/s²</div>
+          <svg class="diagram" viewBox="0 0 380 100" role="img" aria-labelledby="second-title">
+            <title id="second-title">Vagn accelererar i kraftens riktning</title>
+            <defs><marker id="arrow-cart" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#e87928"/></marker></defs>
+            <line id="cart-force-vector" x1="75" y1="36" x2="220" y2="36" class="vector vector-force" marker-end="url(#arrow-cart)"/>
+            <text id="cart-force-label" x="81" y="25" font-size="13" font-weight="700">ΣF →</text>
+            <rect x="105" y="45" width="110" height="35" rx="8" fill="#eaf0ff" stroke="#9bb7f3" stroke-width="2"/>
+            <circle cx="130" cy="83" r="7" fill="#59677d"/><circle cx="190" cy="83" r="7" fill="#59677d"/>
+            <text id="cart-acceleration-label" x="235" y="68" font-size="15" font-weight="700" fill="#2864dc">a = 3,0 m/s²</text>
+          </svg>
+          <p style="margin-top: 10px; color: var(--muted); font-size: .9rem;">Använd SI-enheter: newton (N), kilogram (kg) och meter per sekundkvadrat (m/s²).</p>
+        </article>
+
+        <article class="card">
+          <p class="law-number">Newtons tredje lag · kraft och motkraft</p>
+          <h3>Krafter kommer i par</h3>
+          <p>När person A påverkar person B med en kraft, påverkar B samtidigt A med en lika stor kraft i motsatt riktning.</p>
+          <svg class="diagram" viewBox="0 0 380 160" role="img" aria-labelledby="third-title">
+            <title id="third-title">Två skridskoåkare trycker ifrån varandra</title>
+            <defs>
+              <marker id="arrow-left" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#2864dc"/></marker>
+              <marker id="arrow-right" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#e87928"/></marker>
+            </defs>
+            <rect x="75" y="64" width="72" height="54" rx="14" fill="#eaf0ff" stroke="#9bb7f3" stroke-width="2"/>
+            <rect x="233" y="64" width="72" height="54" rx="14" fill="#fff0e4" stroke="#f2bc91" stroke-width="2"/>
+            <text x="98" y="96" font-size="15" font-weight="700">A</text>
+            <text x="256" y="96" font-size="15" font-weight="700">B</text>
+            <line x1="102" y1="48" x2="36" y2="48" class="vector vector-reaction" marker-end="url(#arrow-left)"/>
+            <line x1="278" y1="48" x2="344" y2="48" class="vector vector-force" marker-end="url(#arrow-right)"/>
+            <text x="32" y="35" font-size="12" font-weight="700">F från B på A</text>
+            <text x="223" y="35" font-size="12" font-weight="700">F från A på B</text>
+            <text class="diagram-note" x="56" y="145">Krafterna verkar på olika personer.</text>
+          </svg>
+          <div class="tip">Motkrafterna tar inte ut varandra på ett och samma föremål – en verkar på A, den andra på B.</div>
+        </article>
+
+        <article class="card">
+          <p class="law-number">Koppla till vardagen</p>
+          <h3>Tre situationer att känna igen</h3>
+          <div class="everyday" style="grid-template-columns: 1fr; margin-top: 12px;">
+            <article><h3>Bussen startar</h3><p>Kroppen vill behålla sitt rörelsetillstånd (lag 1). Sätet påverkar dig så att du accelererar med bussen (lag 2).</p></article>
+            <article><h3>Du sparkar en boll</h3><p>Foten påverkar bollen med en kraft. Bollen påverkar samtidigt foten med en lika stor motkraft (lag 3).</p></article>
+            <article><h3>Du drar en pulka</h3><p>Dragkraften har en framåtriktad komponent. Friktionen verkar bakåt; skillnaden avgör resultantkraften.</p></article>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="ovning">
+      <div class="section-heading">
+        <p class="eyebrow">4 · Testa din förståelse</p>
+        <h2>Snabbkoll</h2>
+        <p>Välj ett svar i varje fråga. Du får återkoppling direkt.</p>
+      </div>
+      <div class="quiz">
+        <article class="question" data-correct="b" data-explanation="Krafterna är i balans, alltså är resultantkraften noll. Föremålet kan då stå stilla eller röra sig med konstant hastighet.">
+          <p>En bok ligger stilla på ett bord. Vilket påstående stämmer?</p>
+          <div class="answers">
+            <button class="answer" type="button" data-choice="a">Inga krafter verkar på boken.</button>
+            <button class="answer" type="button" data-choice="b">Tyngdkraft och normalkraft balanserar varandra.</button>
+            <button class="answer" type="button" data-choice="c">Boken måste ha en kraft framåt.</button>
+          </div>
+          <p class="feedback" aria-live="polite"></p>
+        </article>
+        <article class="question" data-correct="c" data-explanation="Fᵧ = 12 sin 30° = 6 N. Sinus används här eftersom den vertikala kateten ligger mitt emot vinkeln.">
+          <p>En 12 N kraft pekar 30° upp från horisontalen. Hur stor är den vertikala komponenten?</p>
+          <div class="answers">
+            <button class="answer" type="button" data-choice="a">10,4 N</button>
+            <button class="answer" type="button" data-choice="b">12 N</button>
+            <button class="answer" type="button" data-choice="c">6 N</button>
+          </div>
+          <p class="feedback" aria-live="polite"></p>
+        </article>
+        <article class="question" data-correct="a" data-explanation="Newtons andra lag ger a = ΣF/m = 10/2 = 5 m/s².">
+          <p>En vagn med massan 2 kg påverkas av resultantkraften 10 N. Vilken acceleration får den?</p>
+          <div class="answers">
+            <button class="answer" type="button" data-choice="a">5 m/s²</button>
+            <button class="answer" type="button" data-choice="b">20 m/s²</button>
+            <button class="answer" type="button" data-choice="c">0,2 m/s²</button>
+          </div>
+          <p class="feedback" aria-live="polite"></p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Fysik 1 · Krafter. Ett undervisningsmaterial att utforska tillsammans. Kraftpilarna visar riktning och är schematiska om inget annat anges.</p>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const numberSv = (value, decimals) => value.toLocaleString("sv-SE", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals
+    });
+
+    const forceX = document.getElementById("force-x");
+    const forceY = document.getElementById("force-y");
+
+    function updateResultant() {
+      const fx = Number(forceX.value);
+      const fy = Number(forceY.value);
+      const originX = 230;
+      const originY = 155;
+      const scale = 13;
+      const endX = originX + fx * scale;
+      const endY = originY - fy * scale;
+      const xCorner = endX;
+
+      document.getElementById("force-x-value").textContent = `${fx} N`;
+      document.getElementById("force-y-value").textContent = `${fy} N`;
+
+      const xVector = document.getElementById("result-x-vector");
+      xVector.setAttribute("x1", originX);
+      xVector.setAttribute("y1", originY);
+      xVector.setAttribute("x2", xCorner);
+      xVector.setAttribute("y2", originY);
+
+      const yVector = document.getElementById("result-y-vector");
+      yVector.setAttribute("x1", xCorner);
+      yVector.setAttribute("y1", originY);
+      yVector.setAttribute("x2", endX);
+      yVector.setAttribute("y2", endY);
+
+      const resultVector = document.getElementById("result-vector");
+      resultVector.setAttribute("x2", endX);
+      resultVector.setAttribute("y2", endY);
+
+      document.getElementById("result-x-label").setAttribute("x", originX + fx * scale / 2 - 8);
+      document.getElementById("result-x-label").setAttribute("y", originY + (fx >= 0 ? 21 : -10));
+      document.getElementById("result-y-label").setAttribute("x", endX + (fx >= 0 ? 9 : -34));
+      document.getElementById("result-y-label").setAttribute("y", originY - fy * scale / 2);
+      document.getElementById("result-label").setAttribute("x", endX + (fx >= 0 ? 9 : -32));
+      document.getElementById("result-label").setAttribute("y", endY - (fy >= 0 ? 7 : -20));
+
+      const magnitude = Math.hypot(fx, fy);
+      let angle = Math.atan2(fy, fx) * 180 / Math.PI;
+      if (angle < 0) angle += 360;
+      const angleText = magnitude === 0 ? "riktning saknas (ΣF = 0)" : `riktning ${numberSv(angle, 0)}°`;
+      document.getElementById("result-equation").innerHTML =
+        `F<sub>R</sub> = ${numberSv(magnitude, 1)} N · ${angleText}`;
+      document.getElementById("result-desc").textContent =
+        `Kraftkomponenterna är ${fx} newton i x-led och ${fy} newton i y-led. Resultantens storlek är ${numberSv(magnitude, 1)} newton.`;
+    }
+
+    forceX.addEventListener("input", updateResultant);
+    forceY.addEventListener("input", updateResultant);
+    updateResultant();
+
+    const forceMagnitude = document.getElementById("component-magnitude");
+    const forceAngle = document.getElementById("component-angle");
+
+    function updateComponents() {
+      const magnitude = Number(forceMagnitude.value);
+      const angle = Number(forceAngle.value);
+      const radians = angle * Math.PI / 180;
+      const fx = magnitude * Math.cos(radians);
+      const fy = magnitude * Math.sin(radians);
+      const scale = 8;
+      const originX = 65;
+      const originY = 205;
+      const endX = originX + fx * scale;
+      const endY = originY - fy * scale;
+
+      document.getElementById("component-magnitude-value").textContent = `${magnitude} N`;
+      document.getElementById("component-angle-value").textContent = `${angle}°`;
+
+      const xVector = document.getElementById("component-x-vector");
+      xVector.setAttribute("x2", endX);
+      const yVector = document.getElementById("component-y-vector");
+      yVector.setAttribute("x1", endX);
+      yVector.setAttribute("x2", endX);
+      yVector.setAttribute("y2", endY);
+      const forceVector = document.getElementById("component-force-vector");
+      forceVector.setAttribute("x2", endX);
+      forceVector.setAttribute("y2", endY);
+
+      document.getElementById("component-x-label").setAttribute("x", originX + (endX - originX) / 2 - 8);
+      document.getElementById("component-y-label").setAttribute("x", endX + 7);
+      document.getElementById("component-y-label").setAttribute("y", originY - (originY - endY) / 2);
+      document.getElementById("component-force-label").setAttribute("x", endX + 7);
+      document.getElementById("component-force-label").setAttribute("y", endY - 5);
+      document.getElementById("component-equation").innerHTML =
+        `F<sub>x</sub> = ${numberSv(fx, 1)} N &nbsp;·&nbsp; F<sub>y</sub> = ${numberSv(fy, 1)} N`;
+      document.getElementById("component-desc").textContent =
+        `En kraft på ${magnitude} newton i vinkeln ${angle} grader delas upp i ${numberSv(fx, 1)} newton horisontellt och ${numberSv(fy, 1)} newton vertikalt.`;
+    }
+
+    forceMagnitude.addEventListener("input", updateComponents);
+    forceAngle.addEventListener("input", updateComponents);
+    updateComponents();
+
+    const mass = document.getElementById("mass");
+    const netForce = document.getElementById("net-force");
+
+    function updateNewton() {
+      const m = Number(mass.value);
+      const f = Number(netForce.value);
+      const acceleration = f / m;
+      document.getElementById("mass-value").textContent = `${m} kg`;
+      document.getElementById("net-force-value").textContent = `${f} N`;
+      document.getElementById("newton-equation").innerHTML =
+        `ΣF = m·a → a = ${f}/${m} = ${numberSv(acceleration, 1)} m/s²`;
+      document.getElementById("cart-acceleration-label").textContent = `a = ${numberSv(acceleration, 1)} m/s²`;
+      const forceLine = document.getElementById("cart-force-vector");
+      forceLine.setAttribute("x2", 100 + f * 6);
+      forceLine.setAttribute("visibility", f === 0 ? "hidden" : "visible");
+      document.getElementById("cart-force-label").textContent = f === 0 ? "ΣF = 0" : "ΣF →";
+      document.getElementById("second-title").textContent =
+        `Vagn med massan ${m} kilogram får accelerationen ${numberSv(acceleration, 1)} meter per sekundkvadrat när resultantkraften är ${f} newton.`;
+    }
+
+    mass.addEventListener("input", updateNewton);
+    netForce.addEventListener("input", updateNewton);
+    updateNewton();
+
+    document.querySelectorAll(".question").forEach((question) => {
+      const feedback = question.querySelector(".feedback");
+      question.querySelectorAll(".answer").forEach((button) => {
+        button.addEventListener("click", () => {
+          const isCorrect = button.dataset.choice === question.dataset.correct;
+          question.querySelectorAll(".answer").forEach((answer) => {
+            answer.setAttribute("aria-pressed", String(answer === button));
+            answer.classList.remove("correct", "incorrect");
+          });
+          button.classList.add(isCorrect ? "correct" : "incorrect");
+          feedback.textContent = `${isCorrect ? "Rätt!" : "Inte riktigt."} ${question.dataset.explanation}`;
+        });
+      });
+    });
+  </script>
+</body>
+</html>

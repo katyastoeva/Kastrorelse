@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <meta name="description" content="Interaktiv lektion om kaströrelse utan luftmotstånd.">
+  <title>Kaströrelse | Fysik 1</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="content.js"></script>
+  <script defer src="physics.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#start" data-copy="brand">Fysik 1 · Kaströrelse</a>
+      <nav aria-label="Lektionens delar">
+        <a href="#modell" data-copy="navModel">Modellen</a>
+        <a href="#utforska" data-copy="navExplore">Utforska</a>
+        <a href="#rakna" data-copy="navCalculate">Räkna</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="start">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow" data-copy="eyebrow">En interaktiv lektion · Fysik 1</p>
+        <h1 data-copy="heading">Kaströrelse</h1>
+        <p class="lead" data-copy="intro">Vad händer när en boll kastas snett? Följ bollens bana och undersök hur hastighet och vinkel påverkar rörelsen.</p>
+        <a class="primary-link" href="#utforska" data-copy="startLink">Prova själv ↓</a>
+      </div>
+      <div class="hero-orbit" aria-hidden="true">
+        <span class="orbit-ball"></span>
+        <span class="orbit-path"></span>
+      </div>
+    </section>
+
+    <section id="modell" class="lesson-section">
+      <div class="section-heading">
+        <p class="eyebrow" data-copy="modelEyebrow">Modellen</p>
+        <h2 data-copy="modelHeading">En förenklad verklighet</h2>
+        <p data-copy="modelText">Vi försummar luftmotståndet och antar att tyngdaccelerationen är konstant. Bollen startar och landar på samma höjd.</p>
+      </div>
+      <div class="assumptions">
+        <article class="assumption-card">
+          <span class="assumption-icon" aria-hidden="true">↗</span>
+          <h3 data-copy="horizontalTitle">Horisontellt</h3>
+          <p data-copy="horizontalText">Ingen kraft verkar i sidled, så den horisontella hastigheten är konstant.</p>
+        </article>
+        <article class="assumption-card">
+          <span class="assumption-icon gravity" aria-hidden="true">↓</span>
+          <h3 data-copy="verticalTitle">Vertikalt</h3>
+          <p data-copy="verticalText">Tyngdaccelerationen verkar nedåt: g = 9,82 m/s².</p>
+        </article>
+        <article class="assumption-card">
+          <span class="assumption-icon" aria-hidden="true">↔</span>
+          <h3 data-copy="sameHeightTitle">Samma höjd</h3>
+          <p data-copy="sameHeightText">Flygtiden räknas tills bollen kommer tillbaka till starthöjden.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="utforska" class="lesson-section">
+      <div class="section-heading">
+        <p class="eyebrow" data-copy="exploreEyebrow">Interaktiv modell</p>
+        <h2 data-copy="exploreHeading">Ändra kastet</h2>
+        <p data-copy="exploreText">Dra i reglagen. Banan, flygtiden och räckvidden uppdateras direkt.</p>
+      </div>
+
+      <div class="lab-layout">
+        <aside class="control-panel" aria-label="Kastets inställningar">
+          <div class="control">
+            <label for="speed">
+              <span data-copy="speedLabel">Begynnelsehastighet, v₀</span>
+              <output id="speed-value" for="speed">20 m/s</output>
+            </label>
+            <input id="speed" type="range" min="0" max="40" step="1" value="20">
+            <div class="range-ends"><span>0 m/s</span><span>40 m/s</span></div>
+          </div>
+          <div class="control">
+            <label for="angle">
+              <span data-copy="angleLabel">Kastvinkel, θ</span>
+              <output id="angle-value" for="angle">45°</output>
+            </label>
+            <input id="angle" type="range" min="0" max="90" step="1" value="45">
+            <div class="range-ends"><span>0°</span><span>90°</span></div>
+          </div>
+
+          <div class="results" aria-live="polite">
+            <div class="result">
+              <span data-copy="flightLabel">Flygtid</span>
+              <strong><span id="flight-time">2,9</span> <small>s</small></strong>
+            </div>
+            <div class="result">
+              <span data-copy="rangeLabel">Räckvidd</span>
+              <strong><span id="range">40,7</span> <small>m</small></strong>
+            </div>
+            <div class="result">
+              <span data-copy="heightLabel">Högsta höjd</span>
+              <strong><span id="max-height">10,2</span> <small>m</small></strong>
+            </div>
+          </div>
+
+          <div class="play-controls">
+            <button id="play" class="button primary" type="button" data-copy="playButton">▶ Spela kastet</button>
+            <button id="reset" class="button secondary" type="button" data-copy="resetButton">↺ Börja om</button>
+          </div>
+          <p id="motion-status" class="status" aria-live="polite" data-copy="readyStatus">Bollen är redo att kastas.</p>
+        </aside>
+
+        <div class="visual-panel">
+          <svg id="trajectory-graph" class="trajectory-graph" viewBox="0 0 720 390" role="img" aria-labelledby="graph-title graph-description">
+            <title id="graph-title">Bollens kastbana</title>
+            <desc id="graph-description">En boll rör sig längs en parabolisk bana och landar på samma höjd som den startade.</desc>
+            <defs>
+              <marker id="axis-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#8493a8"></path>
+              </marker>
+              <linearGradient id="path-color" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#2864dc"></stop>
+                <stop offset="100%" stop-color="#008b91"></stop>
+              </linearGradient>
+            </defs>
+            <path id="y-axis" class="axis" marker-end="url(#axis-arrow)" d="M62 310 V28"></path>
+            <path id="x-axis" class="axis" marker-end="url(#axis-arrow)" d="M62 310 H694"></path>
+            <g id="x-ticks" class="ticks"></g>
+            <g id="y-ticks" class="ticks"></g>
+            <text class="axis-title" x="685" y="338" data-copy="distanceAxis">Horisontellt avstånd (m)</text>
+            <text class="axis-title" x="19" y="22" data-copy="heightAxis">Höjd (m)</text>
+            <line id="height-guide" class="height-guide" x1="62" y1="310" x2="62" y2="310"></line>
+            <text id="height-label" class="measurement-label" x="70" y="300"></text>
+            <path id="range-guide" class="range-guide" d=""></path>
+            <text id="range-label" class="measurement-label" x="62" y="360"></text>
+            <path id="trajectory" class="trajectory" d=""></path>
+            <circle id="landing-point" class="landing-point" cx="62" cy="310" r="5"></circle>
+            <circle id="ball" class="ball" cx="62" cy="310" r="9"></circle>
+            <text x="68" y="300" class="point-label" data-copy="startPoint">Start</text>
+            <text id="end-label" x="68" y="300" class="point-label" data-copy="endPoint">Landning</text>
+          </svg>
+          <p class="graph-caption" data-copy="graphCaption">Banan visar bollens position vid olika tidpunkter. Diagrammets skala anpassas efter kastet.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="rakna" class="lesson-section">
+      <div class="section-heading">
+        <p class="eyebrow" data-copy="calculateEyebrow">Från kast till formler</p>
+        <h2 data-copy="calculateHeading">Så räknar du</h2>
+        <p data-copy="calculateIntro">Dela begynnelsehastigheten i en horisontell och en vertikal komponent. Använd sedan rörelseekvationerna.</p>
+      </div>
+      <div class="formula-grid">
+        <article class="formula-card">
+          <span class="formula-step">1</span>
+          <h3 data-copy="componentFormulaTitle">Dela upp hastigheten</h3>
+          <p class="formula">v₀ₓ = v₀ cos θ</p>
+          <p class="formula">v₀ᵧ = v₀ sin θ</p>
+          <p data-copy="componentFormulaText">Den horisontella och vertikala rörelsen behandlas var för sig.</p>
+        </article>
+        <article class="formula-card">
+          <span class="formula-step">2</span>
+          <h3 data-copy="timeFormulaTitle">Beräkna flygtiden</h3>
+          <p class="formula">t = 2v₀ᵧ / g</p>
+          <p data-copy="timeFormulaText">På vägen upp bromsas bollen av g. På vägen ner tar det lika lång tid till starthöjden.</p>
+        </article>
+        <article class="formula-card">
+          <span class="formula-step">3</span>
+          <h3 data-copy="rangeFormulaTitle">Beräkna räckvidden</h3>
+          <p class="formula">R = v₀ₓ · t</p>
+          <p data-copy="rangeFormulaText">Den horisontella hastigheten är konstant under hela flygtiden.</p>
+        </article>
+      </div>
+      <div class="worked-example">
+        <div>
+          <p class="eyebrow" data-copy="exampleEyebrow">Exempel</p>
+          <h3 data-copy="exampleHeading">Ett snett kast</h3>
+          <p data-copy="exampleText">En boll kastas med hastigheten 20 m/s i vinkeln 45°. Vilken flygtid och räckvidd får den?</p>
+        </div>
+        <div class="example-math">
+          <p>v₀ᵧ = 20 sin 45° ≈ 14,1 m/s</p>
+          <p>t = 2 · 14,1 / 9,82 ≈ 2,9 s</p>
+          <p>R = 20 cos 45° · 2,9 ≈ 40,7 m</p>
+        </div>
+      </div>
+      <p class="note" data-copy="limitNote">Modellen passar för idealiserade kast. Luftmotstånd, vind och skillnader i starthöjd och landningshöjd ingår inte.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p data-copy="footer">Fysik 1 · Kaströrelse. Ändra hastighet och vinkel och undersök hur rörelsen förändras.</p>
+  </footer>
+</body>
+</html>
